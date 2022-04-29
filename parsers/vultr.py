@@ -3,7 +3,25 @@ from .base import BaseParser
 
 
 class VultrParser(BaseParser):
+    """
+    Specific parser to vultr content
+    ...
+    Attributes
+    ----------
+    data_sample: dict
+        a structured dictionary containing all relevant data that needs to be retrieved from HTML
+    item_selector: Selector
+        a Selector object from parsel lib
+    """
     def execute(self, item_selector):
+        """
+        Returns structured data retrieved from item_selector HTML content
+        ...
+        Parameters
+        ----------
+        item_selector: Selector
+        a Selector object from parsel lib
+        """
         self.item_selector = item_selector
         data = dict(self.data_sample)
         cpu_data = item_selector.css('.package__title::text').get()
