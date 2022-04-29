@@ -3,4 +3,4 @@ url_mapper = {
     'https://www.vultr.com/products/bare-metal/#pricing': 'vultr'
 }
 
-RESULTS_PATH = './generated_data/'
+RESULTS_PATH = './results/'
