@@ -1,4 +1,4 @@
-argparse==1.1
-pandas==1.4.2
-parsel==1.6.0
-requests==2.22.0
+argparse
+pandas
+parsel
+requests
