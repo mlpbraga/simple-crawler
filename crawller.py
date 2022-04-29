@@ -1,10 +1,10 @@
 import pandas as pd
 import requests as req
 from parsel import Selector
-from modules.vultr import vultr_parser
-from modules.hostgator import hostgator_parser
+from parsers import VultrParser, HostgatorParser
 
 def crawller(url):
+    parser = None
     list_rows = []
     columns = ['CPU/VCPU', 'PRICE [$/mo]', 'STORAGE/SSD DISK',
                'MEMORY', 'BANDWIDTH/TRANSFER', ]
@@ -14,18 +14,16 @@ def crawller(url):
 
     if 'vultr' in url:
         ul_list = selector.css('.col-lg-3').getall()
+        parser = VultrParser()
 
-        for item in ul_list:
-            item_selector = Selector(text=item)
-            data = vultr_parser(item_selector)
-            if data:
-                list_rows.append(data)
     elif 'hostgator' in url:
         ul_list = selector.css('.pricing-card').getall()
+        parser = HostgatorParser()
 
-        for item in ul_list:
-            item_selector = Selector(text=item)
-            data = hostgator_parser(item_selector)
+    for item in ul_list:
+        item_selector = Selector(text=item)
+        data =  parser.execute(item_selector)
+        if data:
             list_rows.append(data)
 
     df = pd.DataFrame(list_rows, columns=columns)
