@@ -8,6 +8,16 @@ from parsel import Selector
 from parsers import VultrParser, HostgatorParser
 
 def crawller(url):
+    """
+    Recieves some URL and choses the parsing mode to be used according to the endpoint recieved
+    and returns a dataframe, containing the structured data to be printed or written in results
+    ...
+    Parameters
+    ----------
+    url: str
+        a tring containing the target url to retrieve data
+    """
+
     parser = None
     list_rows = []
     columns = ['CPU/VCPU', 'PRICE [$/mo]', 'STORAGE/SSD DISK',
@@ -39,7 +49,7 @@ ts = calendar.timegm(gmt)
 parser = argparse.ArgumentParser(description='Crawller.')
 parser.add_argument('target', type=str,
                     help='target URL to retrieve information')
-parser.add_argument('--print', default=True,
+parser.add_argument('--print', default=False,
                     action='store_true', help='print crawller results')
 parser.add_argument('--save_csv', default=False,
                     action='store_true', help='save crawller results to csv file')
