@@ -1,5 +1,6 @@
 import argparse
 from crawller import crawller
+from constans import url_mapper
 
 parser = argparse.ArgumentParser(description='Crawller.')
 parser.add_argument('target', type=str, help='target URL to retrieve information')
@@ -15,6 +16,7 @@ results = crawller(args.target)
 if args.print:
     print(results)
 if args.save_csv:
-    print('Save csv')
+    results.to_csv(f'{url_mapper[args.target]}.csv', index=False)
 if args.save_json:
-    print('Save json')
+    results.to_json(f'{url_mapper[args.target]}.json')
+
